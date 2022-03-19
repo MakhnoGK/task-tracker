@@ -1,0 +1,10 @@
+@import 'src/styles/fonts';
+
+@mixin RobotoRegular {
+  font-family: RobotoRegular, sans-serif;
+}
+
+@mixin RobotoMedium {
+  font-family: RobotoMedium, sans-serif;
+  font-weight: 500;
+}
