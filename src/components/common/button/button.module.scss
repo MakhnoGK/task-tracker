@@ -1,0 +1,86 @@
+@use 'src/styles/mixins';
+@use 'src/styles/variables';
+
+.root {
+  @include mixins.RobotoRegular;
+  @include mixins.transition(background-color, opacity, box-shadow);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  appearance: none;
+  outline: none;
+  background: none;
+  user-select: none;
+
+  &.primary {
+    background-color: variables.$blue;
+
+    &:active {
+      box-shadow: inset 0 0 4px 0 variables.$blue;
+    }
+
+    &:hover {
+      background-color: variables.$blueLight
+    }
+
+    .label {
+      color: variables.$white;
+    }
+
+    .icon {
+      color: variables.$white;
+    }
+  }
+
+  &.secondary {
+    color: variables.$white;
+    background-color: variables.$grey;
+
+    &:active {
+      box-shadow: inset 0 0 4px 0 black;
+    }
+
+    &:hover {
+      background-color: variables.$greyDarken;
+    }
+
+    .label {
+      color: variables.$white;
+    }
+  }
+
+  &.small {
+    padding: 0;
+  }
+
+  &.medium {
+    padding: 10px 15px;
+    gap: 8px;
+  }
+
+  &.large {
+    padding: 15px 35px;
+    gap: 10px;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    cursor: initial;
+    opacity: 0.65;
+  }
+}
+
+.icon {
+  animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(360deg);
+  }
+}

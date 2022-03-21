@@ -1,5 +1,9 @@
 @import 'src/styles/fonts';
 
+//
+// Fonts
+//
+
 @mixin RobotoRegular {
   font-family: RobotoRegular, sans-serif;
 }
@@ -7,4 +11,11 @@
 @mixin RobotoMedium {
   font-family: RobotoMedium, sans-serif;
   font-weight: 500;
+}
+//
+// Animations
+//
+
+@mixin transition($property...) {
+  transition: .3s $property ease-in-out;
 }
