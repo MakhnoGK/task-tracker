@@ -69,6 +69,24 @@
     cursor: initial;
     opacity: 0.65;
   }
+
+  &.withIcon {
+    padding: 10px;
+    border-radius: 50%;
+    color: variables.$white;
+  }
+
+  &.transparent {
+    background-color: transparent;
+
+    &:hover {
+      background-color: rgba(variables.$white, 0.35);
+    }
+
+    &:active {
+      background-color: rgba(variables.$white, 0.45);
+    }
+  }
 }
 
 .icon {

@@ -13,17 +13,20 @@ interface Properties {
   variant?: ButtonVariant;
   type?: ButtonType;
   disabled?: boolean;
+  transparent?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  label: string;
+  label?: string;
 }
 
 const Button: React.FC<Properties> = ({
   className,
   label,
+  icon,
   size = ButtonSize.Medium,
   variant = ButtonVariant.Primary,
   type = ButtonType.Button,
   loading,
+  transparent,
   disabled,
   onClick
 }) => {
@@ -36,11 +39,27 @@ const Button: React.FC<Properties> = ({
       default:
         return 'm'
     }
-  }, [size]);
+  }, [size])
+
+  const buttonContents = useMemo(() => icon && loading ? (
+      <AiOutlineLoading className={s.icon}/>
+    ) : (
+      <>
+        {icon ? <>{icon}</> : (
+          label && (
+            <Typography className={s.label} size={labelSize}>
+              {label}
+            </Typography>
+          )
+        )}
+        {loading && <AiOutlineLoading className={s.icon}/>}
+      </>
+    ), [icon, label, labelSize, loading]
+  );
 
   const clickCallback = useCallback((event) => {
-    onClick?.(event);
-  }, []);
+    onClick?.(event)
+  }, [])
 
   return (
     <button
@@ -48,14 +67,17 @@ const Button: React.FC<Properties> = ({
         [s.disabled]: disabled || loading
       }, [
         [s[size]],
-        [s[variant]]
-      ], className)}
+        [s[variant]],
+      ], {
+        [s.loading]: loading,
+        [s.withIcon]: icon,
+        [s.transparent]: transparent
+      }, className)}
       type={type}
       onClick={clickCallback}
       onDoubleClick={(event) => event.preventDefault()}
     >
-      <Typography className={s.label} size={labelSize}>{label}</Typography>
-      {loading && <AiOutlineLoading className={s.icon} />}
+      {buttonContents}
     </button>
   )
 }
