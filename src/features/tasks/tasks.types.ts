@@ -1,7 +1,11 @@
 export interface Task {
-  id: number;
+  id: string;
   title: string;
   time: number;
+}
+
+export interface TaskRequest extends Omit<Task, 'id'> {
+
 }
 
 export interface TasksContext {
