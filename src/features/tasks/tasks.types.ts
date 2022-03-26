@@ -12,4 +12,5 @@ export interface TasksContext {
   tasks: Task[];
   add: (task: Task) => void;
   set: (tasks: Task[]) => void;
+  update: (id: string, task: Task) => void;
 }
