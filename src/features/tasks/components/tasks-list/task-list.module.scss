@@ -1,0 +1,13 @@
+.root {
+  &__item {
+    &:hover {
+      .root__controls {
+        display: block !important;
+      }
+    }
+  }
+
+  &__controls {
+    display: none !important;
+  }
+}
