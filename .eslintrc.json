@@ -20,6 +20,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+        "indent": ["error", 4]
     }
 }
