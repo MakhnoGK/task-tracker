@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { Task, TaskRequest } from './tasks.types'
 import ApiClient from '../../lib/api-client'
+import { tasksContext } from './tasks.context'
 
 export const useAddTask = () => {
     const [savedTask, setSavedTask] = useState<Task>()
@@ -87,3 +88,23 @@ export const useTask = () => {
         task
     }
 }
+
+export const useUpdateTask = () => {
+    const { update: contextUpdate } = useContext(tasksContext);
+
+    const update = useCallback(async (id: string, data: Task) => {
+        try {
+            const response = await ApiClient.post('tasks', data, id);
+
+            if (response) {
+                contextUpdate(response, data);
+            }
+        } catch (reason) {
+            console.warn(`Error updating task: ${reason}`);
+        }
+    }, [contextUpdate]);
+
+    return {
+        update
+    }
+};

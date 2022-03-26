@@ -26,7 +26,7 @@ const App: React.FC = () => {
     return (
         <>
             <Navbar/>
-            <TasksList tasks={retrievedTasks}/>
+            <TasksList tasks={tasks}/>
         </>
     )
 }

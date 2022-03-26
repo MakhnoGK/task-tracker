@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import {
-    Button,
     ButtonGroup,
     Container,
     Flex,
@@ -11,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { Task } from '../../tasks.types'
 import { map } from 'lodash'
-import { BsPlus, BsTrash } from 'react-icons/all'
+import { BsTrash } from 'react-icons/all'
 import s from './task-list.module.scss'
 import AddTimeButton from '../add-time-button'
 
@@ -20,19 +19,15 @@ interface Properties {
 }
 
 const TasksList: React.FC<Properties> = ({ tasks }) => {
-    const addButtonClickCallback = useCallback(() => {
-
-    }, [])
-
     return (
         <Container maxW="container.xl">
             <UnorderedList marginInline={0}>
                 {map(tasks, (task) => (
                     <ListItem key={task.id} className={s.root__item} listStyleType="none">
                         <Flex alignItems="center" justifyContent="space-between" h={8}>
-                            <Text>{task.title}</Text>
+                            <Text>{task.title} ({task.time}h)</Text>
                             <ButtonGroup className={s.root__controls}>
-                                <AddTimeButton taskId={task.id} />
+                                <AddTimeButton task={task} />
                                 <IconButton size="sm" rounded={100} colorScheme="red" icon={<BsTrash/>}
                                             aria-label="button remove task"/>
                             </ButtonGroup>
