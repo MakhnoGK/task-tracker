@@ -2,12 +2,12 @@
   &__item {
     &:hover {
       .root__controls {
-        display: block !important;
+        visibility: visible;
       }
     }
   }
 
   &__controls {
-    display: none !important;
+    visibility: hidden;
   }
 }
