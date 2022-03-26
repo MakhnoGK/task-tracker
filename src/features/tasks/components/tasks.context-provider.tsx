@@ -9,9 +9,14 @@ export const TasksContextProvider: React.FC = ({ children }) => {
     setTasks((prevState) => [task, ...prevState]);
   }, []);
 
+  const set = useCallback((tasks: Task[]) => {
+    setTasks(tasks);
+  }, []);
+
   const memoizedValue: TasksContext = useMemo(() => ({
     tasks,
-    add
+    add,
+    set
   }), [add, tasks]);
 
   return (

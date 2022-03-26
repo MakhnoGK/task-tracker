@@ -6,7 +6,7 @@ import { useTasks } from '../../features/tasks/tasks.hooks'
 import '../../main.scss';
 
 const App: React.FC = () => {
-  const { add, tasks } = useContext(tasksContext);
+  const { set, tasks } = useContext(tasksContext);
   const { tasks: retrievedTasks, retrieveTasks } = useTasks();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    forEach(retrievedTasks, add);
+    set(retrievedTasks);
   }, [retrievedTasks]);
 
   return <><Navbar />{map(tasks, (task) => (
