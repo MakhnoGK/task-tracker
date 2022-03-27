@@ -1,4 +1,4 @@
-import { getFirestore, Firestore, query, collection, getDocs, getDoc, doc, addDoc, setDoc } from 'firebase/firestore'
+import { getFirestore, Firestore, query, collection, getDocs, getDoc, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore'
 import { map } from 'lodash'
 import firebaseApp from './fbase'
 
@@ -29,6 +29,11 @@ class ApiClient {
         const newDocument = await addDoc(collection(ApiClient._store, table), data)
 
         return newDocument.id
+    }
+
+    public static async delete (table: string, id: string) {
+        const docRef = doc(ApiClient._store, table, id);
+        return deleteDoc(docRef).then(() => true);
     }
 }
 

@@ -90,21 +90,43 @@ export const useTask = () => {
 }
 
 export const useUpdateTask = () => {
-    const { update: contextUpdate } = useContext(tasksContext);
+    const { update: contextUpdate } = useContext(tasksContext)
 
     const update = useCallback(async (id: string, data: Task) => {
         try {
-            const response = await ApiClient.post('tasks', data, id);
+            const response = await ApiClient.post('tasks', data, id)
 
             if (response) {
-                contextUpdate(response, data);
+                contextUpdate(response, data)
             }
         } catch (reason) {
-            console.warn(`Error updating task: ${reason}`);
+            console.warn(`Error updating task: ${reason}`)
         }
-    }, [contextUpdate]);
+    }, [contextUpdate])
 
     return {
         update
     }
-};
+}
+
+export const useDeleteTask = () => {
+    const [loading, setLoading] = useState(false);
+    const { deleteTask: contextDelete } = useContext(tasksContext);
+
+    const deleteTask = useCallback(async (id: string) => {
+        try {
+            const result = await ApiClient.delete('tasks', id);
+            if (result) {
+                setLoading(false);
+                contextDelete(id);
+            }
+        } catch (reason) {
+            console.warn(`Error deleting task: ${reason}`);
+        }
+    }, [])
+
+    return {
+        deleteTask,
+        loading
+    }
+}

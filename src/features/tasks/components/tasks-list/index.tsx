@@ -3,16 +3,15 @@ import {
     ButtonGroup,
     Container,
     Flex,
-    IconButton,
     ListItem,
     Text,
     UnorderedList
 } from '@chakra-ui/react'
 import { Task } from '../../tasks.types'
 import { map } from 'lodash'
-import { BsTrash } from 'react-icons/all'
 import s from './task-list.module.scss'
 import AddTimeButton from '../add-time-button'
+import DeleteTaskButton from '../delete-task-button'
 
 interface Properties {
     tasks: Task[];
@@ -21,20 +20,24 @@ interface Properties {
 const TasksList: React.FC<Properties> = ({ tasks }) => {
     return (
         <Container maxW="container.xl">
-            <UnorderedList marginInline={0}>
-                {map(tasks, (task) => (
-                    <ListItem key={task.id} className={s.root__item} listStyleType="none">
-                        <Flex alignItems="center" justifyContent="space-between" h={8}>
-                            <Text>{task.title} ({task.time}h)</Text>
-                            <ButtonGroup className={s.root__controls}>
-                                <AddTimeButton task={task} />
-                                <IconButton size="sm" rounded={100} colorScheme="red" icon={<BsTrash/>}
-                                            aria-label="button remove task"/>
-                            </ButtonGroup>
-                        </Flex>
-                    </ListItem>
-                ))}
-            </UnorderedList>
+            {tasks.length > 0 ? (
+                <UnorderedList marginInline={0}>
+                    {map(tasks, (task) => (
+                        <ListItem key={task.id} className={s.root__item} listStyleType="none" padding={2}
+                                  _hover={{ backgroundColor: 'gray.50', borderRadius: 8 }}>
+                            <Flex alignItems="center" justifyContent="space-between" h={8}>
+                                <Text>{task.title} ({task.time}h)</Text>
+                                <ButtonGroup className={s.root__controls}>
+                                    <AddTimeButton task={task}/>
+                                    <DeleteTaskButton id={task.id}/>
+                                </ButtonGroup>
+                            </Flex>
+                        </ListItem>
+                    ))}
+                </UnorderedList>
+            ) : (
+                <Text textAlign="center" textColor="gray.400" userSelect="none">No tasks found</Text>
+            )}
         </Container>
     )
 }

@@ -19,11 +19,16 @@ export const TasksContextProvider: React.FC = ({ children }) => {
         setTasks(updatedTasks)
     }, [tasks])
 
+    const deleteTask = useCallback((id: string) => {
+        setTasks((prevState) => prevState.filter((task) => task.id !== id));
+    }, []);
+
     const memoizedValue: TasksContext = useMemo(() => ({
         tasks,
         add,
         set,
-        update
+        update,
+        deleteTask
     }), [add, tasks, update])
 
     return (

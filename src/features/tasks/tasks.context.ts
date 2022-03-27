@@ -8,5 +8,7 @@ export const tasksContext = createContext<TasksContext>({
     set: () => {
     },
     update: () => {
+    },
+    deleteTask: () => {
     }
 })
