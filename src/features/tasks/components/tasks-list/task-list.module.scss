@@ -1,13 +1,20 @@
 .root {
   &__item {
+    overflow: hidden;
+
     &:hover {
       .root__controls {
+        opacity: 1;
         visibility: visible;
+        transform: translateY(0);
       }
     }
   }
 
   &__controls {
+    opacity: 0;
     visibility: hidden;
+    transform: translateY(calc(100% + 0.5rem));
+    transition: 0.25s all ease-in-out;
   }
 }
